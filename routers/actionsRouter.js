@@ -57,7 +57,7 @@ router.put("/:id", (req,res,next) => {
         })
     }
     actionsDb
-        .insert(req.params.id, req.body)
+        .update(req.params.id, req.body)
         .then((actions)=> {
             if(!actions){
                 res.status(404).json({
@@ -72,17 +72,17 @@ router.put("/:id", (req,res,next) => {
         })
 })
 //delete
-router.get("/:id", (req,res,next) =>{
+router.delete("/:id", (req,res,next) =>{
     post_id = req.params.id
     actionsDb
-        .delete(req.params.id)
-        .then((project) => {
-            if(!project){
+        .remove(req.params.id)
+        .then((action) => {
+            if(!action){
                 return res.status(404).json({
                     error: "Could not find action with the specified ID"
                 })
             } else {
-                return res.status(200).json(project)
+                return res.status(200).json(action)
             }
         })
         .catch(error => {
